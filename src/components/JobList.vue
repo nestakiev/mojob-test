@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import type { JobListing, PositionFunction } from '@/models/models'
-import JobList from './JobList.vue'
+import type { JobListing } from '@/models/models'
+import JobListItem from './JobListItem.vue';
+
 export interface Props {
   jobListings: JobListing[]
-  positionFunctions: PositionFunction[]
 }
 const props = withDefaults(defineProps<Props>(), {
   jobListings: () => [],
-  positionFunctions: () => []
 })
 </script>
 
 <template>
-  <JobList :job-listings="jobListings"/>
+    <ul>
+        <JobListItem v-for="job in jobListings" :key="job.id" :job="job"/>  
+    </ul>
   <!-- <div class="job-feed">
     <div v-for="position in positionFunctions" :key="position.id">
       <h1>{{ position.name_en }}</h1>

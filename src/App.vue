@@ -1,33 +1,60 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import TheHeader from './components/TheHeader.vue'
 </script>
 
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <TheHeader/>
     <router-view />
   </div>
 </template>
 
-<style scoped>
+<style>
+/* @font-face {
+  font-family: 'Nunito Sans';
+  src: url('../public/fonts/Nunito_Sans/NunitoSans-Italic-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('../public/fonts/Nunito_Sans/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 700;
+  font-style: bold;
+} */
+
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('../public/fonts/NunitoSans_10pt-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('../public/fonts/NunitoSans_10pt-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: bold;
+}
+
 #app {
-  font-family: Avenir, Muli, sans-serif !important;
+  font-family: Nunito Sans, Avenir, Muli, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-}
-#nav a {
-  font-weight: bold;
-  color: #4f4f4f;
-}
-#nav a.router-link-exact-active {
-  color: #46bbb3;
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li {
+  margin: 0;
+  padding: 0;
 }
 </style>

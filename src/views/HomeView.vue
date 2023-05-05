@@ -15,15 +15,9 @@ onMounted(async () => {
   try {
     const jobLocationFiltersResponsePage: IPage<PositionFunction> =
       await mojobApi.value.getPositionFunctions()
-
-    const jobListingsResponsePage: IPage<JobListing> | JobListing[] =
-      await mojobApi.value.getJobListings(null, 1, [])
-
-    console.log(jobListingsResponsePage)
-
     if (jobLocationFiltersResponsePage.results) {
       positionFunctionFilters.value = jobLocationFiltersResponsePage.results
-      console.log(JSON.stringify(positionFunctionFilters.value, null, 2))
+      // console.log(JSON.stringify(positionFunctionFilters.value, null, 2))
       console.log(positionFunctionFilters.value)
     } else {
       console.log('Failed loading position function filters')
@@ -32,11 +26,32 @@ onMounted(async () => {
     console.log('Failed loading position function filters')
     console.log(e)
   }
+
+  try {
+    const jobListingsResponsePage: IPage<JobListing> | JobListing[] =
+      await mojobApi.value.getJobListings(5, 1, [])
+
+    if (Array.isArray(jobListingsResponsePage)) {
+      jobListings.value = jobListingsResponsePage
+    } else if (typeof jobListingsResponsePage === 'object' && jobListingsResponsePage.results) {
+      // handle IPage<JobListing>
+      jobListings.value = jobListingsResponsePage.results
+
+      // positionFunctionFilters.value = jobLocationFiltersResponsePage.results
+      // console.log(JSON.stringify(positionFunctionFilters.value, null, 2))
+      console.log(jobListings.value)
+    } else {
+      console.log('Failed loading job listings')
+    }
+  } catch (e) {
+    console.log('Failed loading job listings')
+    console.log(e)
+  }
 })
 </script>
 
 <template>
   <div class="home">
-    <job-feed :job-listings="[]" :position-functions="positionFunctionFilters" />
+    <job-feed :job-listings="jobListings" :position-functions="positionFunctionFilters" />
   </div>
 </template>
