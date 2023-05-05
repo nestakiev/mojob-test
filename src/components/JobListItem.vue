@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { JobListing } from '@/models/models'
-
+import changeDateFormat from '../functions';
 export interface Props {
   job: JobListing
 }
@@ -8,20 +8,7 @@ withDefaults(defineProps<Props>(), {
   job: Object as () => JobListing
 })
 
-const changeFormatDate = (date: string | undefined): string | void=> {
-  if(typeof date === "undefined") {
-    return
-  }
-    return new Date(date).toLocaleTimeString('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    timeZone: 'UTC'
-  }).split(",")[0]
-}
+
 </script>
 
 <template>
@@ -34,8 +21,7 @@ const changeFormatDate = (date: string | undefined): string | void=> {
         <span class="dot" />
         <p>{{ job.job?.position_function?.name_en }}</p>
         <span class="dot" />
-
-        <p>{{ changeFormatDate(job?.job?.due_date) }}</p>
+        <p>Expiry {{ changeDateFormat(job?.job?.due_date) }}</p>
       </div>
     </div>
   </li>

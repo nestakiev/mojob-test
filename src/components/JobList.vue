@@ -5,7 +5,7 @@ import JobListItem from './JobListItem.vue';
 export interface Props {
   jobListings: JobListing[]
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   jobListings: () => [],
 })
 </script>

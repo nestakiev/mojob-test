@@ -5,14 +5,14 @@ export interface Props {
   jobListings: JobListing[]
   positionFunctions: PositionFunction[]
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   jobListings: () => [],
   positionFunctions: () => []
 })
 </script>
 
 <template>
-  <JobList :job-listings="jobListings"/>
+    <JobList :job-listings="jobListings" />
   <!-- <div class="job-feed">
     <div v-for="position in positionFunctions" :key="position.id">
       <h1>{{ position.name_en }}</h1>
