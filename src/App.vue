@@ -26,13 +26,13 @@ import TheHeader from './components/TheHeader.vue'
 
 @font-face {
   font-family: 'Nunito Sans';
-  src: url('../public/fonts/NunitoSans_10pt-Light.ttf') format('truetype');
+  src: url('./fonts/NunitoSans_10pt-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: 'Nunito Sans';
-  src: url('../public/fonts/NunitoSans_10pt-Bold.ttf') format('truetype');
+  src: url('./fonts/NunitoSans_10pt-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: bold;
 }
