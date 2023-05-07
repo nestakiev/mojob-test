@@ -257,3 +257,8 @@ export interface JobListingUnitDescription {
   created_at?: string
   updated_at?: string
 }
+
+export interface IOptionPerPage {
+  name: string
+  value: number | null
+}

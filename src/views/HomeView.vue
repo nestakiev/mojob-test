@@ -1,103 +1,26 @@
 <script setup lang="ts">
-import BaseApi from '@/api-requests/api'
-import type { IPage, PositionFunction, JobListing } from '@/models/models'
-import { inject, onMounted, ref, watch } from 'vue'
-import type { AxiosStatic } from 'axios'
-import JobFeed from '../components/JobFeed.vue'
+import JobFeed from '@/components/JobFeed.vue'
 import MyLoader from '@/components/MyLoader.vue'
+import { useJobStore } from '@/stores/jobStore'
 
-const mojobApi = ref<BaseApi | null>(null)
-const positionFunctionFilters = ref<PositionFunction[]>([])
-const jobListings = ref<JobListing[]>([])
-const page = ref<number>(1)
-const totalPages = ref<number>(0)
-const limitPerPage = ref<number>(5)
-const isLoading = ref<boolean>(false)
-const axiosInstance = inject('axios') as AxiosStatic
-
-const changePage = (pageNumber: number): void => {
-  page.value = pageNumber
-}
-
-const fetchPositionFunction = async () => {
-  if (mojobApi.value !== null) {
-    isLoading.value = true
-    try {
-      const jobLocationFiltersResponsePage: IPage<PositionFunction> =
-        await mojobApi.value.getPositionFunctions()
-      if (jobLocationFiltersResponsePage.results) {
-        positionFunctionFilters.value = jobLocationFiltersResponsePage.results
-        // console.log(JSON.stringify(positionFunctionFilters.value, null, 2))
-        // console.log(positionFunctionFilters.value)
-      } else {
-        console.log('Failed loading position function filters')
-      }
-    } catch (e) {
-      console.log('Failed loading position function filters')
-      console.log(e)
-    }
-  }
-  isLoading.value = false
-}
-
-const fetchJobListings = async () => {
-  if (mojobApi.value !== null) {
-    isLoading.value = true
-
-    try {
-      const jobListingsResponsePage: IPage<JobListing> | JobListing[] =
-        await mojobApi.value.getJobListings(limitPerPage.value, page.value, [])
-
-      if (Array.isArray(jobListingsResponsePage)) {
-        jobListings.value = jobListingsResponsePage
-        totalPages.value = 0
-      } else if (
-        typeof jobListingsResponsePage === 'object' &&
-        jobListingsResponsePage.results &&
-        jobListingsResponsePage.count !== undefined
-      ) {
-        jobListings.value = jobListingsResponsePage.results
-        totalPages.value = Math.ceil(jobListingsResponsePage.count / limitPerPage.value)
-
-        // console.log(totalPages.value)
-        // positionFunctionFilters.value = jobLocationFiltersResponsePage.results
-        // console.log(JSON.stringify(positionFunctionFilters.value, null, 2))
-        // console.log(jobListingsResponsePage)
-      } else {
-        console.log('Failed loading job listings')
-      }
-    } catch (e) {
-      console.log('Failed loading job listings')
-      console.log(e)
-    }
-  }
-  isLoading.value = false
-}
-
-watch([page, limitPerPage], async () => {
-  fetchJobListings()
-})
-
-onMounted(async () => {
-  mojobApi.value = new BaseApi('https://test-api.mojob.io/public/', axiosInstance)
-
-  fetchPositionFunction()
-
-  fetchJobListings()
-})
+const jobStore = useJobStore()
 </script>
 
 <template>
   <main class="home">
-    <MyLoader v-if="isLoading" />
-    <job-feed :job-listings="jobListings" :position-functions="positionFunctionFilters" />
-    <ul v-if="totalPages > 1" class="pagination-wrapper">
+    <MyLoader v-if="jobStore.isLoading" />
+    <job-feed
+      v-if="!jobStore.isLoading"
+      :job-listings="jobStore.jobListings"
+      :position-functions="jobStore.positionFunctionFilters"
+    />
+    <ul v-if="jobStore.totalPages > 1" class="pagination-wrapper">
       <li
-        v-for="pageNumber in totalPages"
+        v-for="pageNumber in jobStore.totalPages"
         :key="pageNumber"
         class="pagination-page"
-        :class="{ 'current-page': page === pageNumber }"
-        @click="changePage(pageNumber)"
+        :class="{ 'current-page': jobStore.page === pageNumber }"
+        @click="jobStore.changePage(pageNumber)"
       >
         {{ pageNumber }}
       </li>
@@ -106,6 +29,10 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.home {
+  background-color: #fafdfd;
+  padding: 0 62px;
+}
 .pagination-wrapper {
   display: flex;
   flex-wrap: wrap;
