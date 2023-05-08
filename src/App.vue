@@ -28,7 +28,6 @@ import TheHeader from './components/TheHeader.vue'
   font-family: Nunito Sans, Avenir, Muli, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
 }
 body,

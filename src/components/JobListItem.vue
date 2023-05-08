@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import type { JobListing } from '@/models/models'
-import changeDateFormat from '../functions';
+import changeDateFormat from '../functions'
 export interface Props {
   job: JobListing
 }
 withDefaults(defineProps<Props>(), {
   job: Object as () => JobListing
 })
-
-
 </script>
 
 <template>

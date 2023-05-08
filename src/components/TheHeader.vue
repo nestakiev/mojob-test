@@ -5,7 +5,6 @@ import { RouterLink } from 'vue-router'
 <template>
   <header class="header">
     <img class="logo" alt="Vue logo" src="../assets/mojob_logo_on_white2.png" />
-
     <div class="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -15,18 +14,14 @@ import { RouterLink } from 'vue-router'
 
 <style scoped>
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
 }
 .logo {
   width: 92px;
   height: 42px;
-}
-
-.nav {
-  padding: 30px;
 }
 .nav a {
   font-weight: bold;
