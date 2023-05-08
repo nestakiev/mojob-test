@@ -136,17 +136,17 @@ npm run serve
 
 ```
 I have used node version:
-v12.19.0
+v20.0.0
 I have used npm version:
-v6.14.8
+v9.6.4
 Javascript framework used:
 Vue
 If you did not use the given Vue project template, describe how can we run your code:
-x y z
+Use template 
 Do you have any other comments regarding your deliverable?
-x y z
+This is my first project written in Vue, so don't judge too harshly =)
 Do you have any comments/feedback about the task we gave you?
-x y z
+It's good test case, that need impliment all main functionality on base level.
 ```
 
 2. To deliver your project you can either send us the link to the git project in the Mojob chat or you can send the archived project by email to `bs@mojob.io`.
